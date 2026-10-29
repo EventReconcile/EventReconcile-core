@@ -1,0 +1,7 @@
+{
+  "schemaVersion": "0.1-m0",
+  "canonicalizationVersion": "json-encoding-json-v1",
+  "overall": "PASS",
+  "assertionStatuses": ["PASS", "PASS", "PASS"],
+  "findingKinds": []
+}

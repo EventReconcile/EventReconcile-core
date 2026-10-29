@@ -1,0 +1,32 @@
+[
+  {
+    "name": "matching-supported-coverage",
+    "input": {
+      "reference": [{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer","A","B"],"data":{"amount":10}}],
+      "observed": [{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer","A","B"],"data":{"amount":10}}],
+      "coverage": {"ranges":[{"from":100,"to":101}],"provenance":"captured-final-ledger-export","completeness":"complete"}
+    },
+    "expectedOverall": "PASS",
+    "expectedFindings": []
+  },
+  {
+    "name": "missing-and-duplicate",
+    "input": {
+      "reference": [{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer"],"data":10},{"ledgerSeq":100,"txHash":"b","txApplicationOrder":1,"eventIndex":0,"topics":["transfer"],"data":5}],
+      "observed": [{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer"],"data":10},{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer"],"data":10}],
+      "coverage": {"ranges":[{"from":100,"to":100}],"provenance":"captured-final-ledger-export","completeness":"complete"}
+    },
+    "expectedOverall": "FAIL",
+    "expectedFindings": ["exact-duplicate-record","missing-event","ordering-violation"]
+  },
+  {
+    "name": "unknown-coverage",
+    "input": {
+      "reference": [{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer"],"data":10}],
+      "observed": [{"ledgerSeq":100,"txHash":"a","txApplicationOrder":0,"eventIndex":0,"topics":["transfer"],"data":10}],
+      "coverage": {"ranges":[],"provenance":"unknown","completeness":"unknown"}
+    },
+    "expectedOverall": "INCONCLUSIVE",
+    "expectedFindings": ["insufficient-reference-coverage","unverifiable-provenance"]
+  }
+]
